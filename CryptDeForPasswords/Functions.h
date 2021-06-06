@@ -1,22 +1,115 @@
-class Function
+п»їclass Function
 {
 private:
 	static const int sizebuff = 128;
 	char buff[sizebuff];
+	
 public:
-	/*Function() {
-		//очистка буффера
-		for (int i = 0; i < sizebuff; i++) {
-			buff[i] = 0;
+	std::string IntToString(int VarInt) {
+		int temp = VarInt, size = 0;
+		int divisor = 1;
+
+		while (temp) {
+			temp /= 10;
+			++size;
 		}
 
-	}*/
-	//Параметры функции: (путь к файлу), ничего не возращает. Суть функции: вывод текста из файла
+		for (int i = 1; i < size; ++i) {
+			divisor *= 10;
+		}
+		std::string output;
+		output.push_back(0);
+		for (int i = 0; i < size; ++i) {
+			temp = VarInt / divisor % 10;
+			switch (temp)
+			{
+			case 0:
+				output[i] = '0';
+				break;
+			case 1:
+				output[i] = '1';
+				break;
+			case 2:
+				output[i] = '2';
+				break;
+			case 3:
+				output[i] = '3';
+				break;
+			case 4:
+				output[i] = '4';
+				break;
+			case 5:
+				output[i] = '5';
+				break;
+			case 6:
+				output[i] = '6';
+				break;
+			case 7:
+				output[i] = '7';
+				break;
+			case 8:
+				output[i] = '8';
+				break;
+			case 9:
+				output[i] = '9';
+				break;
+			}
+			divisor /= 10;
+			output.push_back(0);
+		}
+		return output;
+	}
+	int StringToInt(std::string VarString) {
+		int size = VarString.size();
+		int VarOut = 0, multiplier = 1;
+		for (int i = 0; i < size; ++i) {
+			multiplier *= 10;
+		}
+
+		for (int i = 0; i < size; ++i) {
+			switch (VarString[i])
+			{
+			case '1':
+				VarOut += multiplier;
+				break;
+			case '2':
+				VarOut += multiplier * 2;
+				break;
+			case '3':
+				VarOut += multiplier * 3;
+				break;
+			case '4':
+				VarOut += multiplier * 4;
+				break;
+			case '5':
+				VarOut += multiplier * 5;
+				break;
+			case '6':
+				VarOut += multiplier * 6;
+				break;
+			case '7':
+				VarOut += multiplier * 7;
+				break;
+			case '8':
+				VarOut += multiplier * 8;
+				break;
+			case '9':
+				VarOut += multiplier * 9;
+				break;
+			case '0':
+				VarOut += multiplier * 0;
+				break;
+			}
+			multiplier /= 10;
+		}
+		return VarOut / 10;
+	}
+	//РџР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё: (РїСѓС‚СЊ Рє С„Р°Р№Р»Сѓ), РЅРёС‡РµРіРѕ РЅРµ РІРѕР·СЂР°С‰Р°РµС‚. РЎСѓС‚СЊ С„СѓРЅРєС†РёРё: РІС‹РІРѕРґ С‚РµРєСЃС‚Р° РёР· С„Р°Р№Р»Р°
 	void OutputFile(std::string path) {
 		std::ifstream d;
 		d.open(path);
 		if (!d.is_open()) {
-			std::cout << "Не удалось открыть файл!" << std::endl;
+			std::cout << "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»!" << std::endl;
 		}
 		else {
 			while (d.getline(buff, sizebuff)) {
@@ -25,7 +118,7 @@ public:
 			d.close();
 		}
 	}
-	//Параметры функции: (путь к файлу, ид), ничего не возращает. Суть функции: добавляет пароль
+	//РџР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё: (РїСѓС‚СЊ Рє С„Р°Р№Р»Сѓ, РёРґ), РЅРёС‡РµРіРѕ РЅРµ РІРѕР·СЂР°С‰Р°РµС‚. РЎСѓС‚СЊ С„СѓРЅРєС†РёРё: РґРѕР±Р°РІР»СЏРµС‚ РїР°СЂРѕР»СЊ
 	void AddPassword(std::string path, int id, std::string username, std::string password) {
 		if (id == 0) {
 			std::ofstream input(path);
@@ -36,7 +129,7 @@ public:
 			std::ofstream input("temp" + path);
 			std::ifstream output(path);
 			if (!input.is_open() || !output.is_open()) {
-				std::cout << "Не удалось открыть файл!" << std::endl;
+				std::cout << "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»!" << std::endl;
 			}
 			else {
 				while (output.getline(buff, sizebuff)) {
@@ -60,7 +153,7 @@ public:
 			}
 		}
 	}
-	//Параметры функции: (путь к файлу, ид), ничего не возращает. Суть функции: удаляет пароль
+	//РџР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё: (РїСѓС‚СЊ Рє С„Р°Р№Р»Сѓ, РёРґ), РЅРёС‡РµРіРѕ РЅРµ РІРѕР·СЂР°С‰Р°РµС‚. РЎСѓС‚СЊ С„СѓРЅРєС†РёРё: СѓРґР°Р»СЏРµС‚ РїР°СЂРѕР»СЊ
 	void RemovePassword(std::string path, int id) {
 		if (id == -1) {
 			remove(path.c_str());
@@ -69,24 +162,19 @@ public:
 			std::ofstream input("temp" + path);
 			std::ifstream output(path);
 			if (!input.is_open() || !output.is_open()) {
-				std::cout << "Не удалось открыть файл!" << std::endl;
+				std::cout << "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»!" << std::endl;
 			}
 			else {
 				int s = 0;
-				std::stringstream temp;
 				std::string tempch;
 				while (output.getline(buff, sizebuff)) {
 					for (int i = 0; i < sizebuff; i++) {
 						if (buff[i] == ' ') {
-							temp << tempch;
-							temp >> s;
+							s = StringToInt(tempch);
 							if (id < s) {
-								temp.str(std::string());
-								temp.clear();
 								tempch.clear();
 								s--;
-								temp << s;
-								temp >> tempch;
+								tempch = IntToString(s);
 								for (int g = 0; g < sizebuff; g++) {
 									if (buff[g] == ' ') {
 										break;
@@ -98,9 +186,6 @@ public:
 							else if(s != id){
 								input << buff << std::endl;
 							}
-							s = 0;
-							temp.str(std::string());
-							temp.clear();
 							tempch.clear();
 							break;
 						}
@@ -125,16 +210,15 @@ public:
 			}
 		}
 	}
-	//Параметры функции: (путь к файлу, ид), возращает ключ. Суть функции: шифрует пароль
+	//РџР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё: (РїСѓС‚СЊ Рє С„Р°Р№Р»Сѓ, РёРґ), РІРѕР·СЂР°С‰Р°РµС‚ РєР»СЋС‡. РЎСѓС‚СЊ С„СѓРЅРєС†РёРё: С€РёС„СЂСѓРµС‚ РїР°СЂРѕР»СЊ
 	std::string EncryptPassword(std::string path, int id) {
 		srand(time(0));
 		std::string key,ggg;
 		int s = 0, g = 0;
-		std::stringstream temp;
 		std::ofstream input("temp" + path);
 		std::ifstream output(path);
 		if (!input.is_open() || !output.is_open()) {
-			std::cout << "Не удалось открыть файл!" << std::endl;
+			std::cout << "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»!" << std::endl;
 		}
 		while (output.getline(buff, sizebuff)) {
 			if (id == g) {
@@ -145,13 +229,10 @@ public:
 						}
 						s = rand() % 98 + 1;
 						buff[i] = buff[i] + s;
+						ggg = IntToString(s);
 						
-						temp << s;
-						temp >> ggg;
 						key = key + ggg + " ";
-						temp.str(std::string());
 						ggg.clear();
-						temp.clear();
 						s = 2;
 					}
 					else if (buff[i] == ' ') {
@@ -177,26 +258,22 @@ public:
 		remove(removefile.c_str());
 		return key;
 	}
-	//Параметры функции: (путь к файлу, ид, ключ), ничего не возращает. Суть функции: дешифрует пароль
+	//РџР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё: (РїСѓС‚СЊ Рє С„Р°Р№Р»Сѓ, РёРґ, РєР»СЋС‡), РЅРёС‡РµРіРѕ РЅРµ РІРѕР·СЂР°С‰Р°РµС‚. РЎСѓС‚СЊ С„СѓРЅРєС†РёРё: РґРµС€РёС„СЂСѓРµС‚ РїР°СЂРѕР»СЊ
 	void DecryptPassword(std::string path, int id, std::string key) {
 		int s = 0, g = 0;
 		std::string tempd;
-		int *numbers = new int[key.size()];
-		std::stringstream temp;
+		int* numbers = new int[key.size()];
 		std::ofstream input("temp" + path);
 		std::ifstream output(path);
 
 		if (!input.is_open() || !output.is_open()) {
-			std::cout << "Не удалось открыть файл!" << std::endl;
+			std::cout << "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»!" << std::endl;
 		}
 		key = key + " ";
 		for (int i = 0; i < key.size(); i++) {
 			if (key[i] == ' ') {
-				temp << tempd;
-				temp >> numbers[g];
+				numbers[g] = StringToInt(tempd);
 				g++;
-				temp.str(std::string());
-				temp.clear();
 				tempd.clear();
 			}
 			else {
@@ -212,7 +289,7 @@ public:
 						if (buff[i] == 0) {
 							break;
 						}
-					    buff[i] = buff[i] - numbers[g];
+						buff[i] = buff[i] - numbers[g];
 						g++;
 					}
 					else if (buff[i] == ' ') {
@@ -237,14 +314,15 @@ public:
 		input.close();
 		std::string removefile = "temp" + path;
 		remove(removefile.c_str());
+
 	}
-	//Параметры функции: (путь к файлу), возращает ид функции. Суть функции: находи максимальный ид пароля
+	//РџР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё: (РїСѓС‚СЊ Рє С„Р°Р№Р»Сѓ), РІРѕР·СЂР°С‰Р°РµС‚ РёРґ С„СѓРЅРєС†РёРё. РЎСѓС‚СЊ С„СѓРЅРєС†РёРё: РЅР°С…РѕРґРё РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РёРґ РїР°СЂРѕР»СЏ
 	int MaxId(std::string path) {
 		int id = 0;
 		std::ifstream d;
 		d.open(path);
 		if (!d.is_open()) {
-			std::cout << "Не удалось открыть файл!" << std::endl;
+			std::cout << "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»!" << std::endl;
 		}
 		else {
 			while (d.getline(buff, sizebuff)) {

@@ -39,6 +39,7 @@ int main()
             menu.ClearMenu();
             menu.PrintEncrypt();
             cin >> input;
+
             cout << "Пароль для расшифровки (запишите его, иначе вы не сможете восстановить): " << funct.EncryptPassword(pathpassword, input) << endl;
             menu.Pause();
             break;
@@ -47,6 +48,7 @@ int main()
             menu.PrintDecrypt();
             cin >> input;
             cin.ignore();
+            cout << "Введите код от пароля: ";
             getline(cin, inputstr);
             funct.DecryptPassword(pathpassword, input, inputstr);
             menu.Pause();
@@ -85,6 +87,7 @@ int main()
             menu.Pause();
             break;
         case 8:
+            menu.Pause();
             return 0;
         default:
             menu.PrintSuccessFiled(0, 1);
